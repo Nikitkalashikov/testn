@@ -1,7 +1,7 @@
 {
-	"name": "convertme",
+	"name": "kalashnikof",
 	"version": "1.0.0",
-	"description": "ConvertMe theme for wordpress",
+	"description": "Kalashnikof theme for wordpress",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
