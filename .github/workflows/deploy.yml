@@ -34,6 +34,6 @@ jobs:
           BEGET_USER: ${{ secrets.BEGET_USER }}
           BEGET_PASS: ${{ secrets.BEGET_PASS }}
         run: |
-          apt-get update
-          apt-get install -y lftp
-          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R ./frontend public_html"
+          sudo apt-get update
+          sudo apt-get install -y lftp
+          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R ./frontend ."
