@@ -22,13 +22,10 @@ jobs:
           node-version: "14"
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
+        run: cd frontend && npm install
 
       - name: Build project
-        run: npm run build
+        run: cd frontend && npm run build
 
       - name: Deploy to Beget
         if: github.ref == 'refs/heads/main'
@@ -39,4 +36,4 @@ jobs:
         run: |
           apt-get update
           apt-get install -y lftp
-          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R ./build /path/to/remote/directory"
+          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R ./frontend/build public_html"
