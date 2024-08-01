@@ -22,10 +22,10 @@ jobs:
           node-version: "16"
 
       - name: Install dependencies
-        run: cd frontend && npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build project
-        run: cd frontend && npm run build
+        run: npm run build --prefix frontend
 
       - name: Deploy to Beget
         if: github.ref == 'refs/heads/main'
@@ -36,4 +36,4 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
-          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R --delete --only-newer ./frontend /frontend"
+          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R --delete --only-newer ./ ./"
