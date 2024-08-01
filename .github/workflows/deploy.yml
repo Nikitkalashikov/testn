@@ -27,9 +27,6 @@ jobs:
       - name: Build project
         run: cd frontend && npm run build
 
-      - name: Check directory contents
-        run: ls -la
-
       - name: Deploy to Beget
         if: github.ref == 'refs/heads/main'
         env:
@@ -40,5 +37,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y lftp
           lftp -c "
+          set ssl:verify-certificate no; 
           open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST;
-          mirror -R --delete --parallel=10 --verbose ./ ./"
+          mirror -R --delete --parallel=10 --verbose ./ /;
