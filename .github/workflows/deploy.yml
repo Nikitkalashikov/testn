@@ -38,7 +38,8 @@ jobs:
           sudo apt-get install -y lftp
           echo "Starting deployment..."
           lftp -c "
-          set ftp:ssl-allow yes;  # если используется SFTP
+          set ftp:ssl-allow no;  # Если используется FTP, установите 'no'. Для SFTP используйте 'yes'
           open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST;
           mirror -R --delete --parallel=10 --verbose ./ / || exit 1
           "
+          echo "Deployment completed."
