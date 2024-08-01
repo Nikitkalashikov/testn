@@ -1,0 +1,86 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+html {
+	overflow: hidden;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-size: 16px;
+	font-family: $font-primary;
+	line-height: 1.5;
+	color: $color-text;
+	word-wrap: break-word;
+	background-color: $color-white;
+	min-width: 320px;
+	overflow-x: hidden;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+}
+
+main {
+	width: 100%;
+}
+
+a {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border-style: none;
+	pointer-events: none;
+}
+
+picture {
+	display: block;
+}
+
+button {
+	border: none;
+	cursor: pointer;
+	background: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-weight: 400;
+	padding: 0;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+input,
+select,
+textarea {
+	width: 100%;
+	padding: 0 20px;
+	font-family: inherit;
+	border: none;
+
+	&:hover,
+	&:focus {
+		outline: none;
+	}
+}

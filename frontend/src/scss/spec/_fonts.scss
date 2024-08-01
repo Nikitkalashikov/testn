@@ -1,0 +1,30 @@
+$font-directory: "../fonts";
+
+@include font($font_directory, "Roboto", "Roboto-Light", 300, "normal");
+@include font($font_directory, "Roboto", "Roboto-Regular", "normal", "normal");
+@include font($font_directory, "Roboto", "Roboto-Medium", 500, "normal");
+@include font($font_directory, "Roboto", "Roboto-Bold", "bold", "normal");
+
+h1,
+.h1 {
+	font-size: 30px;
+	line-height: 38px;
+}
+
+h2,
+.h2 {
+	font-size: 28px;
+	line-height: 36px;
+}
+
+h3,
+.h3 {
+	font-size: 24px;
+	line-height: 30px;
+}
+
+h4,
+.h4 {
+	font-size: 20px;
+	line-height: 28px;
+}

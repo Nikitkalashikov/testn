@@ -1,0 +1,123 @@
+@function breakpoint-next(
+	$name,
+	$breakpoints: $grid-breakpoints,
+	$breakpoint-names: map-keys($breakpoints)
+) {
+	$n: index($breakpoint-names, $name);
+	@return if(
+		$n < length($breakpoint-names),
+		nth($breakpoint-names, $n + 1),
+		null
+	);
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+	$min: map-get($breakpoints, $name);
+	@return if($min !=0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+	$next: breakpoint-next($name, $breakpoints);
+	@return if($next, breakpoint-min($next, $breakpoints) - 0.02px, null);
+}
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+	@return if(breakpoint-min($name, $breakpoints) ==null, "", "-#{$name}");
+}
+
+@mixin media-up($name, $breakpoints: $grid-breakpoints) {
+	$min: breakpoint-min($name, $breakpoints);
+
+	@if $min {
+		@media (min-width: $min) {
+			@content;
+		}
+	} @else {
+		@content;
+	}
+}
+
+@mixin media-down($name, $breakpoints: $grid-breakpoints) {
+	$max: breakpoint-max($name, $breakpoints);
+
+	@if $max {
+		@media (max-width: $max) {
+			@content;
+		}
+	} @else {
+		@content;
+	}
+}
+
+@mixin media-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+	$min: breakpoint-min($lower, $breakpoints);
+	$max: breakpoint-max($upper, $breakpoints);
+
+	@media (min-width: $min) and (max-width: $max) {
+		@content;
+	}
+}
+
+@mixin media-only($name, $breakpoints: $grid-breakpoints) {
+	$min: breakpoint-min($name, $breakpoints);
+	$max: breakpoint-max($name, $breakpoints);
+
+	@if $min !=null and $max !=null {
+		@media (min-width: $min) and (max-width: $max) {
+			@content;
+		}
+	} @else if $max==null {
+		@include media-up($name);
+	} @else if $min==null {
+		@include media-down($name);
+	}
+}
+
+@mixin font($font_directory, $font_name, $file_name, $weight, $style) {
+	@font-face {
+		font-family: $font_name;
+		src: url("#{$font_directory}/#{$font_name}/#{$file_name}.woff2")
+				format("woff2"),
+			url("#{$font_directory}/#{$font_name}/#{$file_name}.woff") format("woff");
+		font-weight: #{$weight};
+		font-style: #{$style};
+		font-display: swap;
+	}
+}
+
+@mixin scrollhide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+@mixin scrollpad {
+	&:last-child {
+		position: relative;
+
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			right: -10px;
+			width: 10px;
+			height: 1px;
+		}
+	}
+}
+
+@mixin link {
+	color: $color-primary;
+	transition: color 0.15s;
+
+	&:hover {
+		color: $color-primary--hover;
+	}
+
+	&:active {
+		color: $color-primary--active;
+	}
+}

@@ -1,0 +1,30 @@
+$grid-breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1500px,
+);
+
+$font-primary: "Roboto Slab", serif;
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+$color-primary: #dddddd;
+$color-primary-hover: #b5b4b6;
+
+$color-secondary: #1e1e1e;
+$color-secondary-active: #141414;
+
+$color-link: #3850ed;
+$color-link-hover: #061996;
+
+$color-text: #232323;
+
+$color-gray: #cbcbcb;
+$color-gray-light: #e8e8e8;
+
+$color-error: #fa5e5e;
+$color-success: #6ed13f;
