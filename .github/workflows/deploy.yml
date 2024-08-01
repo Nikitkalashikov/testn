@@ -36,4 +36,4 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
-          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R --delete --only-newer ./ /"
+          lftp -c "open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST; mirror -R --delete --only-newer ./frontend /frontend"
