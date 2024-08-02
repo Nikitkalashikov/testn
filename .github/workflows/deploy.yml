@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Deploy to Beget
 
 on:
   push:
@@ -22,24 +22,37 @@ jobs:
           node-version: "16"
 
       - name: Install dependencies
-        run: cd frontend && npm install
+        run: |
+          cd frontend
+          npm install
 
       - name: Build project
-        run: cd frontend && npm run build
-
-      - name: Deploy to Beget
-        if: github.ref == 'refs/heads/main'
-        env:
-          BEGET_HOST: ${{ secrets.BEGET_HOST }}
-          BEGET_USER: ${{ secrets.BEGET_USER }}
-          BEGET_PASS: ${{ secrets.BEGET_PASS }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
-          echo "Starting deployment..."
-          lftp -c "
-          set ssl:verify-certificate no;
-          open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST;
-          mirror -R --delete --parallel=10 --verbose --exclude-glob node_modules --exclude-glob package-lock.json --exclude-glob .env --exclude-glob .git ./ /
-          "
-          echo "Deployment completed."
+          cd frontend
+          npm run build
+
+      - name: Remove unwanted files before deployment
+        run: |
+          rm -rf frontend/node_modules
+          rm -f frontend/.env
+          rm -f frontend/package-lock.json
+
+      - name: Sync files to Beget
+        uses: appleboy/scp-action@v0.1.1
+        with:
+          host: ${{ secrets.BEGET_HOST }}
+          username: ${{ secrets.BEGET_USERNAME }}
+          password: ${{ secrets.BEGET_PASSWORD }}
+          source: "frontend/"
+          target: "/"
+
+      - name: Clean up deleted files on Beget
+        uses: ehyland/delete-sftp-action@v1.1.2
+        with:
+          host: ${{ secrets.BEGET_HOST }}
+          username: ${{ secrets.BEGET_USERNAME }}
+          password: ${{ secrets.BEGET_PASSWORD }}
+          path: "/"
+          source: "frontend/"
+          dry-run: false
+          delete: true
