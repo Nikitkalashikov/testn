@@ -47,10 +47,11 @@ jobs:
           target: "/"
 
       - name: Clean up deleted files on Beget
-        uses: appleboy/ssh-action@v0.1.2
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.BEGET_HOST }}
           username: ${{ secrets.BEGET_USERNAME }}
           password: ${{ secrets.BEGET_PASSWORD }}
           script: |
-            rsync -av --delete frontend/ /
+            cd /
+            rsync -av --delete frontend/ .
