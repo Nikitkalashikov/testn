@@ -40,6 +40,6 @@ jobs:
           lftp -c "
           set ssl:verify-certificate no;
           open -u $BEGET_USER,$BEGET_PASS $BEGET_HOST;
-          mirror -R --delete --parallel=10 --verbose --exclude-glob node_modules/ --exclude-glob package-lock.json --exclude-glob .env ./ / || exit 1
+          mirror -R --delete --parallel=10 --verbose --exclude-glob node_modules --exclude-glob package-lock.json --exclude-glob .env --exclude-glob .git ./ /
           "
           echo "Deployment completed."
