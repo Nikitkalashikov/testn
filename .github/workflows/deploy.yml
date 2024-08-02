@@ -37,21 +37,13 @@ jobs:
           rm -f frontend/.env
           rm -f frontend/package-lock.json
 
-      - name: Sync files to Beget
-        uses: appleboy/scp-action@v0.1.1
+      - name: Deploy to Beget via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
-          host: ${{ secrets.BEGET_HOST }}
+          server: ${{ secrets.BEGET_HOST }}
           username: ${{ secrets.BEGET_USER }}
           password: ${{ secrets.BEGET_PASS }}
-          source: "frontend/"
-          target: "/"
-
-      - name: Clean up deleted files on Beget
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.BEGET_HOST }}
-          username: ${{ secrets.BEGET_USER }}
-          password: ${{ secrets.BEGET_PASS }}
-          script: |
-            cd /
-            rsync -av --delete frontend/ .
+          local-dir: frontend/
+          server-dir: /
+          method: ftp
+          dangerous-clean-slate: true
