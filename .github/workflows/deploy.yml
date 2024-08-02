@@ -47,12 +47,10 @@ jobs:
           target: "/"
 
       - name: Clean up deleted files on Beget
-        uses: ehyland/delete-sftp-action@v1.1.2
+        uses: appleboy/ssh-action@v0.1.2
         with:
           host: ${{ secrets.BEGET_HOST }}
           username: ${{ secrets.BEGET_USERNAME }}
           password: ${{ secrets.BEGET_PASSWORD }}
-          path: "/"
-          source: "frontend/"
-          dry-run: false
-          delete: true
+          script: |
+            rsync -av --delete frontend/ /
