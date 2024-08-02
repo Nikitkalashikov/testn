@@ -43,7 +43,7 @@ jobs:
           server: ${{ secrets.BEGET_HOST }}
           username: ${{ secrets.BEGET_USER }}
           password: ${{ secrets.BEGET_PASS }}
-          local-dir: /
+          local-dir: ./
           server-dir: /
           method: ftp
           dangerous-clean-slate: true
