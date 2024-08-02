@@ -41,8 +41,8 @@ jobs:
         uses: appleboy/scp-action@v0.1.1
         with:
           host: ${{ secrets.BEGET_HOST }}
-          username: ${{ secrets.BEGET_USERNAME }}
-          password: ${{ secrets.BEGET_PASSWORD }}
+          username: ${{ secrets.BEGET_USER }}
+          password: ${{ secrets.BEGET_PASS }}
           source: "frontend/"
           target: "/"
 
@@ -50,8 +50,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.BEGET_HOST }}
-          username: ${{ secrets.BEGET_USERNAME }}
-          password: ${{ secrets.BEGET_PASSWORD }}
+          username: ${{ secrets.BEGET_USER }}
+          password: ${{ secrets.BEGET_PASS }}
           script: |
             cd /
             rsync -av --delete frontend/ .
