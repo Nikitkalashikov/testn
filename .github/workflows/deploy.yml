@@ -36,6 +36,9 @@ jobs:
           rm -rf frontend/node_modules
           rm -f frontend/.env
           rm -f frontend/package-lock.json
+          rm -f frontend/package.json
+          rm -f frontend/webpack.config.js
+          rm -f frontend/src
 
       - name: Deploy to Beget via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
