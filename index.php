@@ -12,8 +12,6 @@
     <h1>Test website</h1>
     <p>Some subtitle</p>
     <p>Its work!</p>
-    <p>Now work!!</p>
-    <p>Now test!!</p>
   </div>
 </body>
 </html>
